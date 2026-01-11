@@ -209,3 +209,5 @@ __marimo__/
 # Node.js
 frontend/node_modules/
 frontend/package-lock.json
+
+backend/config/config.py
