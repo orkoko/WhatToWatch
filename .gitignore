@@ -212,3 +212,4 @@ frontend/package-lock.json
 
 # Config
 backend/config/config.py
+/package-lock.json
