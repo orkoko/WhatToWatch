@@ -87,10 +87,10 @@ function App() {
     window.open(`https://www.google.com/search?q=${query}`, '_blank');
   };
 
-  const handleStremioClick = (e, stremioUrl) => {
+  const handleLinkClick = (e, url) => {
     e.stopPropagation(); // Prevent triggering the card click
-    if (stremioUrl) {
-        window.location.href = stremioUrl;
+    if (url) {
+        window.open(url, '_blank');
     }
   };
 
@@ -161,21 +161,47 @@ function App() {
                 <div className="item-info-row">
                   <span className="genres">Genres: {item.genres ? item.genres.join(', ') : 'N/A'}</span>
                 </div>
-                {item.stremio_url && (
-                  <div className="item-actions">
-                    <button
-                        className="stremio-btn"
-                        onClick={(e) => handleStremioClick(e, item.stremio_url)}
-                        title="Watch on Stremio"
-                    >
-                        <img
-                            src="https://stremio.com/website/stremio-logo-small.png"
-                            alt="Stremio"
-                            className="stremio-logo"
-                        />
-                    </button>
-                  </div>
-                )}
+                <div className="item-actions">
+                    {item.stremio_url && (
+                        <button
+                            className="action-btn stremio-btn"
+                            onClick={(e) => handleLinkClick(e, item.stremio_url)}
+                            title="Watch on Stremio"
+                        >
+                            <img
+                                src="https://stremio.com/website/stremio-logo-small.png"
+                                alt="Stremio"
+                                className="action-logo"
+                            />
+                        </button>
+                    )}
+                    {item.imdb_url && (
+                        <button
+                            className="action-btn imdb-btn"
+                            onClick={(e) => handleLinkClick(e, item.imdb_url)}
+                            title="View on IMDb"
+                        >
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg"
+                                alt="IMDb"
+                                className="action-logo"
+                            />
+                        </button>
+                    )}
+                    {item.mal_url && (
+                        <button
+                            className="action-btn mal-btn"
+                            onClick={(e) => handleLinkClick(e, item.mal_url)}
+                            title="View on MyAnimeList"
+                        >
+                            <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png"
+                                alt="MyAnimeList"
+                                className="action-logo"
+                            />
+                        </button>
+                    )}
+                </div>
               </div>
             </div>
           </div>

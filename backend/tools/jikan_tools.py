@@ -91,6 +91,9 @@ def _fetch_anime_from_api(
 
                 title = anime.get("title_english") or anime.get("title")
                 stremio_url = f"stremio://search?search={urllib.parse.quote(title)}" if title else None
+                
+                # Use MyAnimeList URL instead of IMDb for anime
+                mal_url = anime.get("url")
 
                 anime_list.append({
                     "id": anime.get("mal_id"),
@@ -100,7 +103,8 @@ def _fetch_anime_from_api(
                     "votes": anime.get("scored_by"),
                     "genres": genres,
                     "poster_url": poster_url,
-                    "stremio_url": stremio_url
+                    "stremio_url": stremio_url,
+                    "mal_url": mal_url
                 })
 
             current_page += 1

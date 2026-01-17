@@ -124,6 +124,14 @@ def _fetch_movies_from_api(
 
                 title = movie.get("title")
                 stremio_url = f"stremio://search?search={urllib.parse.quote(title)}" if title else None
+                
+                # Construct IMDb URL
+                # TMDB usually provides an imdb_id in the detailed movie info, but not in the search results.
+                # However, we can construct a search URL for IMDb as a fallback or if we don't want to fetch details for every movie.
+                # But wait, TMDB search results don't have imdb_id. 
+                # Let's use a search query for IMDb as well, similar to Stremio.
+                # https://www.imdb.com/find/?q=Ryan%20Reynolds
+                imdb_url = f"https://www.imdb.com/find/?q={urllib.parse.quote(title)}" if title else None
 
                 movies.append({
                     "id": movie.get("id"),
@@ -134,7 +142,8 @@ def _fetch_movies_from_api(
                     "genre_ids": movie_genre_ids,
                     "genres": genre_names,
                     "poster_url": poster_url,
-                    "stremio_url": stremio_url
+                    "stremio_url": stremio_url,
+                    "imdb_url": imdb_url
                 })
 
             current_page += 1

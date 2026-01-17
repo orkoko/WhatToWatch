@@ -170,9 +170,12 @@
 
 .item-actions {
   margin-top: 15px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
-.stremio-btn {
+.action-btn {
   background-color: transparent;
   border: none;
   padding: 0;
@@ -182,11 +185,11 @@
   align-items: center;
 }
 
-.stremio-btn:hover {
+.action-btn:hover {
   transform: scale(1.1);
 }
 
-.stremio-logo {
+.action-logo {
   height: 32px;
   width: auto;
 }
