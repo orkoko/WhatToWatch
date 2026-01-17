@@ -168,6 +168,29 @@
   margin-bottom: 0;
 }
 
+.item-actions {
+  margin-top: 15px;
+}
+
+.stremio-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.stremio-btn:hover {
+  transform: scale(1.1);
+}
+
+.stremio-logo {
+  height: 32px;
+  width: auto;
+}
+
 .container {
   display: flex;
   justify-content: center;

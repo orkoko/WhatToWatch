@@ -1,4 +1,5 @@
 import time
+import urllib.parse
 from datetime import date
 from typing import Literal, Optional, List, Union
 
@@ -73,7 +74,7 @@ def _fetch_movies_from_api(
     }
 
     if sort_by == "popular":
-        params["vote_average.gte"] = 6.5
+        params["vote_average.gte"] = 7
 
     if start_date:
         params["primary_release_date.gte"] = start_date
@@ -121,15 +122,19 @@ def _fetch_movies_from_api(
                 poster_path = movie.get("poster_path")
                 poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}" if poster_path else None
 
+                title = movie.get("title")
+                stremio_url = f"stremio://search?search={urllib.parse.quote(title)}" if title else None
+
                 movies.append({
                     "id": movie.get("id"),
-                    "title": movie.get("title"),
+                    "title": title,
                     "release_date": movie.get("release_date"),
                     "rating": movie.get("vote_average"),
                     "votes": movie.get("vote_count"),
                     "genre_ids": movie_genre_ids,
                     "genres": genre_names,
-                    "poster_url": poster_url
+                    "poster_url": poster_url,
+                    "stremio_url": stremio_url
                 })
 
             current_page += 1

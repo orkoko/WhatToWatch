@@ -87,6 +87,13 @@ function App() {
     window.open(`https://www.google.com/search?q=${query}`, '_blank');
   };
 
+  const handleStremioClick = (e, stremioUrl) => {
+    e.stopPropagation(); // Prevent triggering the card click
+    if (stremioUrl) {
+        window.location.href = stremioUrl;
+    }
+  };
+
   if (error) return <div className="container">Error: {error}</div>;
 
   return (
@@ -154,6 +161,21 @@ function App() {
                 <div className="item-info-row">
                   <span className="genres">Genres: {item.genres ? item.genres.join(', ') : 'N/A'}</span>
                 </div>
+                {item.stremio_url && (
+                  <div className="item-actions">
+                    <button
+                        className="stremio-btn"
+                        onClick={(e) => handleStremioClick(e, item.stremio_url)}
+                        title="Watch on Stremio"
+                    >
+                        <img
+                            src="https://stremio.com/website/stremio-logo-small.png"
+                            alt="Stremio"
+                            className="stremio-logo"
+                        />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

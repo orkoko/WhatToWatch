@@ -1,4 +1,5 @@
 import time
+import urllib.parse
 from typing import Optional, List, Union
 
 import requests
@@ -52,7 +53,7 @@ def _fetch_anime_from_api(
     params = {
         "order_by": "score",
         "sort": "desc",
-        "min_score": 6.5,
+        "min_score": 8,
         "limit": 25,
         "page": 1,
         "type": "tv"
@@ -88,14 +89,18 @@ def _fetch_anime_from_api(
                 aired = anime.get("aired", {})
                 release_date = aired.get("from", "").split("T")[0] if aired.get("from") else "Unknown"
 
+                title = anime.get("title_english") or anime.get("title")
+                stremio_url = f"stremio://search?search={urllib.parse.quote(title)}" if title else None
+
                 anime_list.append({
                     "id": anime.get("mal_id"),
-                    "title": anime.get("title_english") or anime.get("title"),
+                    "title": title,
                     "release_date": release_date,
                     "rating": anime.get("score"),
                     "votes": anime.get("scored_by"),
                     "genres": genres,
-                    "poster_url": poster_url
+                    "poster_url": poster_url,
+                    "stremio_url": stremio_url
                 })
 
             current_page += 1
